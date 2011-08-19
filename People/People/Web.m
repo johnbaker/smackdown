@@ -16,6 +16,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        activity = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     }
     return self;
 }
@@ -34,6 +35,7 @@
 {
     [super viewDidLoad];
     self.title = self.person;
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activity] autorelease];
     [((UIWebView*)self.view) loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.twitter.com/%@", self.person]]]];
     // Do any additional setup after loading the view from its nib.
 }
@@ -54,9 +56,19 @@
 
 - (void)dealloc
 {
+    [activity release];
     [person release];
     [super dealloc];
 }
 
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    [activity startAnimating];
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    [activity stopAnimating];
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    [activity stopAnimating];
+}
 
 @end

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Web : UIViewController {
+@interface Web : UIViewController<UIWebViewDelegate> {
     NSString* person;
+    UIActivityIndicatorView *activity ;
 }
 
 @property(nonatomic, retain) NSString* person;

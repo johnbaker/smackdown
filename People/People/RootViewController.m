@@ -18,6 +18,19 @@
     [super viewDidLoad];
     self.title = @"People";
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)] autorelease];
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleBordered target:self action:@selector(edit)] autorelease];
+}
+
+-(void)edit {
+    [self setEditing:!self.editing animated:YES];
+    [self.tableView setEditing:self.editing animated:YES];
+    if(self.editing) {
+        self.navigationItem.leftBarButtonItem.title = @"Done";
+        self.navigationItem.leftBarButtonItem.style = UIBarButtonItemStyleDone;
+    } else {
+        self.navigationItem.leftBarButtonItem.title = @"Edit";
+        self.navigationItem.leftBarButtonItem.style = UIBarButtonItemStyleBordered;
+    }
 }
 
 -(void)add {
@@ -106,21 +119,20 @@
 }
 
 
-/*
+
 // Override to support rearranging the table view.
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
+    [DEL.people exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
 }
-*/
 
-/*
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

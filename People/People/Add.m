@@ -32,7 +32,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Add Person";
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismiss)] autorelease];
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)dismiss {
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 -(void)viewDidAppear:(BOOL)animated {
@@ -57,7 +63,7 @@
         [DEL.people addObject:textField.text];
     }
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismiss];
     return YES;
 }
 
