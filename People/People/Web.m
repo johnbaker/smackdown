@@ -37,6 +37,13 @@
     self.title = self.person;
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activity] autorelease];
     [((UIWebView*)self.view) loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://m.twitter.com/%@", self.person]]]];
+
+    self.toolbarItems = [NSArray arrayWithObjects:
+                         [[[UIBarButtonItem alloc] initWithTitle:@"<" style:UIBarButtonItemStyleBordered target:self action:@selector(back)] autorelease],
+                         [[[UIBarButtonItem alloc] initWithTitle:@">" style:UIBarButtonItemStyleBordered target:self action:@selector(forward)] autorelease],
+                         [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+                         [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh)] autorelease],
+                         nil];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -45,6 +52,25 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[self navigationController] setToolbarHidden:NO animated:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[self navigationController] setToolbarHidden:YES animated:animated];
+}
+-(void)back {
+    [((UIWebView*)self.view) goBack];
+}
+-(void)forward {
+    [((UIWebView*)self.view) goForward];
+}
+-(void)refresh {
+    [((UIWebView*)self.view) reload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
