@@ -109,7 +109,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
         // Delete the row from the data source.
-        [DEL.people removeObject:indexPath.row];
+        [DEL.people removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert)
